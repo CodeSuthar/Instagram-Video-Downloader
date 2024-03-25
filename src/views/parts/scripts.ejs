@@ -79,15 +79,7 @@
 
                     const placeholder = document.getElementById("instagramUrl");
 
-                    placeholder.addEventListener("input", setNormal);
-
-                    function setNormal() {
-                        element.innerHTML = `<button class="download-button enabledbutton">
-                                <span class="enabledbutton-content">Fetch</span>
-                            </button>`;
-
-                        placeholder.removeEventListener("input", setNormal);
-                    }
+                    placeholder.addEventListener("input", setNormal(element, placeholder));
                 } else if (URLType === "reel") {
                     //reel dont have length more than 1
                     let button = `<button class="Btn">
@@ -107,16 +99,8 @@ xmlns="http://www.w3.org/2000/svg"
                     element.innerHTML = `<a href="${response.data[0].url}">${button}</a>`;
 
                     const placeholder = document.getElementById("instagramUrl");
-
-                    placeholder.addEventListener("input", setNormal);
-
-                    function setNormal() {
-                        element.innerHTML = `<button class="download-button enabledbutton">
-                                <span class="enabledbutton-content">Fetch</span>
-                            </button>`;
-
-                        placeholder.removeEventListener("input", setNormal);
-                    }
+                    
+                    placeholder.addEventListener("input", setNormal(element, placeholder));
                 } else if (URLType === "story") {
                     //stories length = total length of data / 2
                     console.log(response.data.length);
@@ -147,15 +131,7 @@ xmlns="http://www.w3.org/2000/svg"
 
                     const placeholder = document.getElementById("instagramUrl");
 
-                    placeholder.addEventListener("input", setNormal);
-
-                    function setNormal() {
-                        element.innerHTML = `<button class="download-button enabledbutton">
-                                <span class="enabledbutton-content">Fetch</span>
-                            </button>`;
-
-                        placeholder.removeEventListener("input", setNormal);
-                    }
+                    placeholder.addEventListener("input", setNormal(element, placeholder));
                 }
             }
         } catch (e) {
@@ -183,6 +159,14 @@ function instaRegex(url) {
         }
     }
 }
+
+function setNormal(element, placeholder) {
+                        element.innerHTML = `<button class="download-button enabledbutton">
+                                <span class="enabledbutton-content">Fetch</span>
+                            </button>`;
+
+                        placeholder.removeEventListener("input", setNormal);
+                    }
 
 function showAlert(string) {
     const alertElement = document.getElementById("err");
