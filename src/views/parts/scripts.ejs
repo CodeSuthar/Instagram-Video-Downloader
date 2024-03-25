@@ -92,6 +92,33 @@ xmlns="http://www.w3.org/2000/svg"
 </button>`
 
                     element.innerHTML = `<a href="${response.data[0].url}">${button}</a>`;
+                } else if (URLType === "stories") {
+                    //stories length = total length of data / 2
+                    console.log(response.data.length);
+                    const resLength = await Math.ceil(response.data.length / 2);
+                    console.log(resLength);
+
+                    const resArray = [];
+
+                    for (let i = 0; i < resLength; i++) {
+                        let button = `<button class="Btn">
+<svg
+class="svgIcon"
+viewBox="0 0 384 512"
+height="1em"
+xmlns="http://www.w3.org/2000/svg"
+>
+<path
+  d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
+></path>
+</svg>
+<span class="icon2"></span>
+</button>`
+
+                        resArray.push(`<a href="${response.data[i].url}">${button}</a>`);
+                    }
+
+                    element.innerHTML = resArray.join("&nbsp;");
                 }
             }
         } catch (e) {
@@ -104,13 +131,13 @@ xmlns="http://www.w3.org/2000/svg"
 });
 
 function instaRegex(url) {
-    const regex = /(?:https?:\/\/)?(?:www\.)?instagram\.com\/?([a-zA-Z0-9\.\_\-]+)?\/(p|r|reel|tv|stories)\/([a-zA-Z0-9\-\_\.]+)\/?([0-9]+)?/;
+    const regex = /(?:https?:\/\/)?(?:www\.)?instagram\.com\/?([a-zA-Z0-9\.\_\-]+)?\/(p|r|reel|reels|tv|stories)\/([a-zA-Z0-9\-\_\.]+)\/?([0-9]+)?/;
 
     if (regex.test(url)) {
         return url;
     } else {
         // Check if the URL is without protocol
-        const instaURLWithoutProtocol = /(?:www\.)?instagram\.com\/?([a-zA-Z0-9\.\_\-]+)?\/(p|r|reel|tv|stories)\/([a-zA-Z0-9\-\_\.]+)\/?([0-9]+)?/;
+        const instaURLWithoutProtocol = /(?:www\.)?instagram\.com\/?([a-zA-Z0-9\.\_\-]+)?\/(p|r|reel|reels|tv|stories)\/([a-zA-Z0-9\-\_\.]+)\/?([0-9]+)?/;
 
         if (instaURLWithoutProtocol.test(url)) {
             return `https://${url}`;
@@ -138,15 +165,14 @@ function showAlert(string) {
 }
 
 function contentType(url) {
-    if (url.includes("instagram.com/p/")) {
+    if (url.includes("/p/")) {
         return "post";
-    } else if (
-        url.includes("instagram.com/reels/") ||
-        url.includes("instagram.com/reel/")
-    ) {
+    } else if (url.includes("r") || url.includes("reel") || url.includes("reels")) {
         return "reel";
-    } else if (url.includes("instagram.com/stories/")) {
-        return "story";
+    } else if (url.includes("tv")) {
+        return "tv";
+    } else if (url.includes("stories")) {
+        return "stories";
     }
 }
 </script>
