@@ -17,6 +17,8 @@ InstagramRouter.get('/', async(req ,res) => {
             status: ndownn.status,
             data: ndownn.data
         }
+
+        res.status(200).json(api)
     } catch (error) {
         res.status(400).json({ message: error.message })
     }
