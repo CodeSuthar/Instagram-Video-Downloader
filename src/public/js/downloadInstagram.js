@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     `;
 
             const request = await fetch(
-                `http://127.0.0.1:8800/api/instagram?url=${URL}`
+                `https://127.0.0.1:8800/api/instagram?url=${URL}`
             );
             const response = await request.json();
             console.log(response);
