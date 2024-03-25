@@ -10,9 +10,13 @@ InstagramRouter.get('/', async(req ,res) => {
             return res.status(400).json({ message: "URL is required" })
         }
 
-        const data = await ndown(url);
-
-        res.status(200).json(data) 
+        const ndownn = await ndown(url);
+        
+        const api = {
+            developer: "CodeSuthar AKA Aditya Suthar",
+            status: ndownn.status,
+            data: ndownn.data
+        }
     } catch (error) {
         res.status(400).json({ message: error.message })
     }
