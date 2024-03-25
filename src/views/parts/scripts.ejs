@@ -92,7 +92,7 @@ xmlns="http://www.w3.org/2000/svg"
 </button>`
 
                     element.innerHTML = `<a href="${response.data[0].url}">${button}</a>`;
-                } else if (URLType === "stories") {
+                } else if (URLType === "story") {
                     //stories length = total length of data / 2
                     console.log(response.data.length);
                     const resLength = await Math.ceil(response.data.length / 2);
