@@ -1,0 +1,25 @@
+{
+  "name": "instagram-video-downloader",
+  "version": "0.0.1",
+  "description": "Wondered Sometimes To Download Instagram Reels Without Annoying & NSFW Ads. CodeSuthar's Downloader is here!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodeSuthar/Instagram-Video-Downloader.git"
+  },
+  "author": "CodeSuthar",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/CodeSuthar/Instagram-Video-Downloader/issues"
+  },
+  "homepage": "https://github.com/CodeSuthar/Instagram-Video-Downloader#readme",
+  "dependencies": {
+    "axios": "^1.6.7",
+    "ejs": "^3.1.9",
+    "express": "^4.18.3",
+    "nayan-media-downloader": "^2.0.9"
+  }
+}
