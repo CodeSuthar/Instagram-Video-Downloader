@@ -103,18 +103,14 @@ xmlns="http://www.w3.org/2000/svg"
     });
 });
 
-// Regex for confirming it is instagram URL or not
-// instagram url example:- https://www.instagram.com/p/CustomID/ or https://www.instagram.com/reels/CustomID/ or https://www.instagram.com/reel/CustomID/ or https://www.instagram.com/stories/username/ or https://www.instagram.com/stories/customusername/ or https://www.instagram.com/stories/customusername/customid/ or https://instagram.com/p/CustomID/ or https://instagram.com/reels/CustomID/ or https://instagram.com/reel/CustomID/ or https://instagram.com/stories/customusername/ or https://instagram.com/stories/customusername/customid/
-
 function instaRegex(url) {
-    const regex =
-        /^(https?:\/\/)?(www\.)?instagram\.com\/(p|reels|reel|stories)\/[a-zA-Z0-9_-]{11}\/?$/;
+    const regex = /(?:https?:\/\/)?(?:www\.)?instagram\.com\/?([a-zA-Z0-9\.\_\-]+)?\/(p|r|reel|tv|stories)\/([a-zA-Z0-9\-\_\.]+)\/?([0-9]+)?/;
 
     if (regex.test(url)) {
         return url;
     } else {
-        const instaURLWithoutProtocol =
-            /^(www\.)?instagram\.com\/(p|reels|reel|stories)\/[a-zA-Z0-9_-]{11}\/?$/;
+        // Check if the URL is without protocol
+        const instaURLWithoutProtocol = /(?:www\.)?instagram\.com\/?([a-zA-Z0-9\.\_\-]+)?\/(p|r|reel|tv|stories)\/([a-zA-Z0-9\-\_\.]+)\/?([0-9]+)?/;
 
         if (instaURLWithoutProtocol.test(url)) {
             return `https://${url}`;
