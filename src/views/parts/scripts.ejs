@@ -167,12 +167,12 @@ function showAlert(string) {
 function contentType(url) {
     if (url.includes("/p/")) {
         return "post";
-    } else if (url.includes("r") || url.includes("reel") || url.includes("reels")) {
+    } else if (url.includes("/r/") || url.includes("/reel/") || url.includes("/reels/")) {
         return "reel";
-    } else if (url.includes("tv")) {
+    } else if (url.includes("/tv/")) {
         return "tv";
-    } else if (url.includes("stories")) {
-        return "stories";
+    } else if (url.includes("/stories/")) {
+        return "story";
     }
 }
 </script>
