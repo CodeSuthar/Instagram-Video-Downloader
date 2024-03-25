@@ -5,7 +5,8 @@
     button.addEventListener("click", async () => {
         console.log("Button Clicked");
 
-        let URL = await document.getElementById("instagramUrl").value;
+        let Input = await document.getElementById("instagramUrl");
+        let URL = await Input.value;
 
         if (!URL || URL === "") {
             return showAlert("Please provide a link to start.");
@@ -75,6 +76,18 @@
                     }
 
                     element.innerHTML = resArray.join("&nbsp;");
+
+                    const placeholder = document.getElementById("InstagramUrl");
+
+                    placeholder.addEventListener("input", setNormal);
+
+                    function setNormal() {
+                        element.innerHTML = `<button class="download-button enabledbutton">
+                                <span class="enabledbutton-content">Fetch</span>
+                            </button>`;
+
+                        placeholder.removeEventListener("input", setNormal);
+                    }
                 } else if (URLType === "reel") {
                     //reel dont have length more than 1
                     let button = `<button class="Btn">
@@ -92,6 +105,18 @@ xmlns="http://www.w3.org/2000/svg"
 </button>`
 
                     element.innerHTML = `<a href="${response.data[0].url}">${button}</a>`;
+
+                    const placeholder = document.getElementById("InstagramUrl");
+
+                    placeholder.addEventListener("input", setNormal);
+
+                    function setNormal() {
+                        element.innerHTML = `<button class="download-button enabledbutton">
+                                <span class="enabledbutton-content">Fetch</span>
+                            </button>`;
+
+                        placeholder.removeEventListener("input", setNormal);
+                    }
                 } else if (URLType === "story") {
                     //stories length = total length of data / 2
                     console.log(response.data.length);
@@ -119,6 +144,18 @@ xmlns="http://www.w3.org/2000/svg"
                     }
 
                     element.innerHTML = resArray.join("&nbsp;");
+
+                    const placeholder = document.getElementById("InstagramUrl");
+
+                    placeholder.addEventListener("input", setNormal);
+
+                    function setNormal() {
+                        element.innerHTML = `<button class="download-button enabledbutton">
+                                <span class="enabledbutton-content">Fetch</span>
+                            </button>`;
+
+                        placeholder.removeEventListener("input", setNormal);
+                    }
                 }
             }
         } catch (e) {
