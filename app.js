@@ -2,7 +2,7 @@ const express = require("express");
 const app = express()
 
 // Configuration
-const port = process.env.DEPLOYPORT || 8800;
+const port = process.env.DEPLOYPORT || 3000;
 
 // Static Files
 app.use(express.static('./src/public'));
