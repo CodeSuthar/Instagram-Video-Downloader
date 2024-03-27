@@ -191,16 +191,14 @@ function contentType(url) {
         if (changeButton) {
             const element = await document.getElementById('formm');
 
-            input.addEventListener("input", () => {
-                const inputURL = document.getElementById('instagramUrl');
+            const inputURL = document.getElementById('instagramUrl');
 
-                inputURL.addEventListener('input', async () => {
-                    element.innerHTML = `<button class="download-button enabledbutton">
-                                <span class="enabledbutton-content">Fetch</span>
-                            </button>`;
-
-                    localStorage.removeItem('changeButton');
-                });
+            inputURL.addEventListener('input', async () => {
+                element.innerHTML = `<button class="download-button enabledbutton">
+                            <span class="enabledbutton-content">Fetch</span>
+                        </button>`;
+                
+                localStorage.removeItem('changeButton');
             });
         }
     });
