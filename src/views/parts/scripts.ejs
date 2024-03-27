@@ -194,7 +194,7 @@ function contentType(url) {
             input.addEventListener("input", () => {
                 const inputURL = document.getElementById('instagramUrl');
 
-                inputURL.addEventListener('input', () => {
+                inputURL.addEventListener('input', async () => {
                     element.innerHTML = `<button class="download-button enabledbutton">
                                 <span class="enabledbutton-content">Fetch</span>
                             </button>`;
@@ -206,12 +206,12 @@ function contentType(url) {
     });
 
     //  When the page is reloaded is clicked the localstorage will be cleared
-    window.addEventListener('beforeunload', () => {
-        localStorage.clear();
+    window.addEventListener('beforeunload', async () => {
+        await localStorage.clear();
     });
 
     // When page is loaded the localstorage will be cleared
-    window.addEventListener('load', () => {
-        localStorage.clear();
+    window.addEventListener('load', async () => {
+        await localStorage.clear();
     });
 </script>
