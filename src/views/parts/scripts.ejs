@@ -185,20 +185,24 @@ function contentType(url) {
 </script>
 <script>
     document.addEventListener('DOMContentLoaded', async () => {
-        // Check if the button needs to be changed
-        const changeButton = localStorage.getItem('changeButton');
 
         if (changeButton) {
-            const element = await document.getElementById('formm');
 
-            const inputURL = document.getElementById('instagramUrl');
+            const inputURL = await document.getElementById('instagramUrl');
 
             inputURL.addEventListener('input', async () => {
-                element.innerHTML = `<button class="download-button enabledbutton">
+                const changeButton = localStorage.getItem('changeButton');
+
+                if (changeButton) {
+                    const element = await document.getElementById('formm');
+                    
+                    element.innerHTML = `<button class="download-button enabledbutton">
                             <span class="enabledbutton-content">Fetch</span>
                         </button>`;
+                        
+                    localStorage.removeItem('changeButton');
+                }
                 
-                localStorage.removeItem('changeButton');
             });
         }
     });
