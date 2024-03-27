@@ -77,17 +77,7 @@
 
                     element.innerHTML = resArray.join("&nbsp;");
 
-                    const placeholder = document.getElementById("instagramUrl");
-
-                    placeholder.addEventListener("input", setNormal);
-
-                    function setNormal() {
-                        element.innerHTML = `<button class="download-button enabledbutton">
-                                <span class="enabledbutton-content">Fetch</span>
-                            </button>`;
-
-                        placeholder.removeEventListener("input", setNormal);
-                    }
+                    localStorage.setItem("changeButton", true);
                 } else if (URLType === "reel") {
                     //reel dont have length more than 1
                     let button = `<button class="Btn">
@@ -106,17 +96,7 @@ xmlns="http://www.w3.org/2000/svg"
 
                     element.innerHTML = `<a href="${response.data[0].url}">${button}</a>`;
 
-                    const placeholder = document.getElementById("instagramUrl");
-
-                    placeholder.addEventListener("input", setNormal);
-
-                    function setNormal() {
-                        element.innerHTML = `<button class="download-button enabledbutton">
-                                <span class="enabledbutton-content">Fetch</span>
-                            </button>`;
-
-                        placeholder.removeEventListener("input", setNormal);
-                    }
+                    localStorage.setItem("changeButton", true);
                 } else if (URLType === "story") {
                     //stories length = total length of data / 2
                     console.log(response.data.length);
@@ -145,17 +125,7 @@ xmlns="http://www.w3.org/2000/svg"
 
                     element.innerHTML = resArray.join("&nbsp;");
 
-                    const placeholder = document.getElementById("instagramUrl");
-
-                    placeholder.addEventListener("input", setNormal);
-
-                    function setNormal() {
-                        element.innerHTML = `<button class="download-button enabledbutton">
-                                <span class="enabledbutton-content">Fetch</span>
-                            </button>`;
-
-                        placeholder.removeEventListener("input", setNormal);
-                    }
+                    localStorage.setItem("changeButton", true);
                 }
             }
         } catch (e) {
@@ -212,4 +182,36 @@ function contentType(url) {
         return "story";
     }
 }
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        // Check if the button needs to be changed
+        const changeButton = localStorage.getItem('changeButton');
+
+        if (changeButton) {
+            const element = await document.getElementById('formm');
+
+            input.addEventListener("input", () => {
+                const inputURL = document.getElementById('instagramUrl');
+
+                inputURL.addEventListener('input', () => {
+                    element.innerHTML = `<button class="download-button enabledbutton">
+                                <span class="enabledbutton-content">Fetch</span>
+                            </button>`;
+
+                    localStorage.removeItem('changeButton');
+                });
+            });
+        }
+    });
+
+    //  When the page is reloaded is clicked the localstorage will be cleared
+    window.addEventListener('beforeunload', () => {
+        localStorage.clear();
+    });
+
+    // When page is loaded the localstorage will be cleared
+    window.addEventListener('load', () => {
+        localStorage.clear();
+    });
 </script>
