@@ -1,29 +1,29 @@
 <script>
     document.addEventListener("DOMContentLoaded", async () => {
-    const button = document.getElementsByClassName("download-button")[0];
+        const button = document.getElementsByClassName("download-button")[0];
 
-    button.addEventListener("click", async () => {
-        console.log("Button Clicked");
+        button.addEventListener("click", async () => {
+            console.log("Button Clicked");
 
-        let Input = await document.getElementById("instagramUrl");
-        let URL = await Input.value;
+            let Input = await document.getElementById("instagramUrl");
+            let URL = await Input.value;
 
-        if (!URL || URL === "") {
-            return showAlert("Please provide a link to start.");
-        }
+            if (!URL || URL === "") {
+                return showAlert("Please provide a link to start.");
+            }
 
-        if (!instaRegex(URL)) {
-            return showAlert(
-                "Please provide a valid post or reel url to start downloading it."
-            );
-        }
+            if (!instaRegex(URL)) {
+                return showAlert(
+                    "Please provide a valid post or reel url to start downloading it."
+                );
+            }
 
-        const URLType = contentType(URL);
+            const URLType = contentType(URL);
 
-        try {
-            //Loading Animation
-            const element = await document.getElementById("formm");
-            element.innerHTML = `
+            try {
+                //Loading Animation
+                const element = await document.getElementById("formm");
+                element.innerHTML = `
     <div class="loader">
                                 <p class="text">
                                 <span class="letter letter1">L</span>
@@ -40,23 +40,23 @@
                               </div>
     `;
 
-            const request = await fetch(
-                `https://<%- req.get('host') %>/api/instagram?url=${URL}`
-            );
-            const response = await request.json();
-            console.log(response);
+                const request = await fetch(
+                    `https://<%- req.get('host') %>/api/instagram?url=${URL}`
+                );
+                const response = await request.json();
+                console.log(response);
 
-            if (request.status === 200) {
-                if (URLType === "post") {
-                    // reslength = total data/6
-                    console.log(response.data.length);
-                    const resLength = await Math.ceil(response.data.length / 6);
-                    console.log(resLength);
+                if (request.status === 200) {
+                    if (URLType === "post") {
+                        // reslength = total data/6
+                        console.log(response.data.length);
+                        const resLength = await Math.ceil(response.data.length / 6);
+                        console.log(resLength);
 
-                    const resArray = [];
+                        const resArray = [];
 
-                    for (let i = 0; i < resLength; i++) {
-                        let button = `
+                        for (let i = 0; i < resLength; i++) {
+                            let button = `
                         <button class="Btn">
   <svg
     class="svgIcon"
@@ -72,40 +72,14 @@
 </button>
 
                         `
-                        resArray.push(`<a href="${response.data[i].url}">${button}</a>`);
-                    }
+                            resArray.push(`<a href="${response.data[i].url}">${button}</a>`);
+                        }
 
-                    element.innerHTML = resArray.join("&nbsp;");
+                        element.innerHTML = resArray.join("&nbsp;");
 
-                    localStorage.setItem("changeButton", true);
-                } else if (URLType === "reel") {
-                    //reel dont have length more than 1
-                    let button = `<button class="Btn">
-<svg
-class="svgIcon"
-viewBox="0 0 384 512"
-height="1em"
-xmlns="http://www.w3.org/2000/svg"
->
-<path
-  d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
-></path>
-</svg>
-<span class="icon2"></span>
-</button>`
-
-                    element.innerHTML = `<a href="${response.data[0].url}">${button}</a>`;
-
-                    localStorage.setItem("changeButton", true);
-                } else if (URLType === "story") {
-                    //stories length = total length of data / 2
-                    console.log(response.data.length);
-                    const resLength = await Math.ceil(response.data.length / 2);
-                    console.log(resLength);
-
-                    const resArray = [];
-
-                    for (let i = 0; i < resLength; i++) {
+                        localStorage.setItem("changeButton", true);
+                    } else if (URLType === "reel") {
+                        //reel dont have length more than 1
                         let button = `<button class="Btn">
 <svg
 class="svgIcon"
@@ -120,91 +94,113 @@ xmlns="http://www.w3.org/2000/svg"
 <span class="icon2"></span>
 </button>`
 
-                        resArray.push(`<a href="${response.data[i].url}">${button}</a>`);
+                        element.innerHTML = `<a href="${response.data[0].url}">${button}</a>`;
+
+                        localStorage.setItem("changeButton", true);
+                    } else if (URLType === "story") {
+                        //stories length = total length of data / 2
+                        console.log(response.data.length);
+                        const resLength = await Math.ceil(response.data.length / 2);
+                        console.log(resLength);
+
+                        const resArray = [];
+
+                        for (let i = 0; i < resLength; i++) {
+                            let button = `<button class="Btn">
+<svg
+class="svgIcon"
+viewBox="0 0 384 512"
+height="1em"
+xmlns="http://www.w3.org/2000/svg"
+>
+<path
+  d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
+></path>
+</svg>
+<span class="icon2"></span>
+</button>`
+
+                            resArray.push(`<a href="${response.data[i].url}">${button}</a>`);
+                        }
+
+                        element.innerHTML = resArray.join("&nbsp;");
+
+                        localStorage.setItem("changeButton", true);
                     }
-
-                    element.innerHTML = resArray.join("&nbsp;");
-
-                    localStorage.setItem("changeButton", true);
                 }
+            } catch (e) {
+                console.log(e);
+                showAlert(
+                    "An error occurred. Please try again later and if this error continues reach out to codesuthar on Instagram."
+                );
             }
-        } catch (e) {
-            console.log(e);
-            showAlert(
-                "An error occurred. Please try again later and if this error continues reach out to codesuthar on Instagram."
-            );
-        }
+        });
     });
-});
 
-function instaRegex(url) {
-    const regex = /(?:https?:\/\/)?(?:www\.)?instagram\.com\/?([a-zA-Z0-9\.\_\-]+)?\/(p|r|reel|reels|tv|stories)\/([a-zA-Z0-9\-\_\.]+)\/?([0-9]+)?/;
+    function instaRegex(url) {
+        const regex = /(?:https?:\/\/)?(?:www\.)?instagram\.com\/?([a-zA-Z0-9\.\_\-]+)?\/(p|r|reel|reels|tv|stories)\/([a-zA-Z0-9\-\_\.]+)\/?([0-9]+)?/;
 
-    if (regex.test(url)) {
-        return url;
-    } else {
-        // Check if the URL is without protocol
-        const instaURLWithoutProtocol = /(?:www\.)?instagram\.com\/?([a-zA-Z0-9\.\_\-]+)?\/(p|r|reel|reels|tv|stories)\/([a-zA-Z0-9\-\_\.]+)\/?([0-9]+)?/;
-
-        if (instaURLWithoutProtocol.test(url)) {
-            return `https://${url}`;
+        if (regex.test(url)) {
+            return url;
         } else {
-            return false;
+            // Check if the URL is without protocol
+            const instaURLWithoutProtocol = /(?:www\.)?instagram\.com\/?([a-zA-Z0-9\.\_\-]+)?\/(p|r|reel|reels|tv|stories)\/([a-zA-Z0-9\-\_\.]+)\/?([0-9]+)?/;
+
+            if (instaURLWithoutProtocol.test(url)) {
+                return `https://${url}`;
+            } else {
+                return false;
+            }
         }
     }
-}
 
-function showAlert(string) {
-    const alertElement = document.getElementById("err");
-    const alertMessage = document.getElementById("alertMSG");
+    function showAlert(string) {
+        const alertElement = document.getElementById("err");
+        const alertMessage = document.getElementById("alertMSG");
 
-    alertMessage.innerHTML = string;
+        alertMessage.innerHTML = string;
 
-    alertElement.style.display = "flex";
+        alertElement.style.display = "flex";
 
-    console.log("Alert Displayed");
+        console.log("Alert Displayed");
 
-    // Hide alert after 3 seconds
+        // Hide alert after 3 seconds
 
-    setTimeout(() => {
-        alertElement.style.display = "none";
-    }, 3000);
-}
-
-function contentType(url) {
-    if (url.includes("/p/")) {
-        return "post";
-    } else if (url.includes("/r/") || url.includes("/reel/") || url.includes("/reels/")) {
-        return "reel";
-    } else if (url.includes("/tv/")) {
-        return "tv";
-    } else if (url.includes("/stories/")) {
-        return "story";
+        setTimeout(() => {
+            alertElement.style.display = "none";
+        }, 3000);
     }
-}
+
+    function contentType(url) {
+        if (url.includes("/p/")) {
+            return "post";
+        } else if (url.includes("/r/") || url.includes("/reel/") || url.includes("/reels/")) {
+            return "reel";
+        } else if (url.includes("/tv/")) {
+            return "tv";
+        } else if (url.includes("/stories/")) {
+            return "story";
+        }
+    }
 </script>
 <script>
     document.addEventListener('DOMContentLoaded', async () => {
+        const inputURL = await document.getElementById('instagramUrl');
 
-        if (changeButton) {
+        inputURL.addEventListener('input', async () => {
+            const changeButton = localStorage.getItem('changeButton');
 
-            const inputURL = await document.getElementById('instagramUrl');
+            if (changeButton) {
+                const element = await document.getElementById('formm');
 
-            inputURL.addEventListener('input', async () => {
-                const changeButton = localStorage.getItem('changeButton');
-
-                if (changeButton) {
-                    const element = await document.getElementById('formm');
-                    
-                    element.innerHTML = `<button class="download-button enabledbutton">
+                element.innerHTML = `<button class="download-button enabledbutton">
                             <span class="enabledbutton-content">Fetch</span>
                         </button>`;
-                        
-                    localStorage.removeItem('changeButton');
-                }
-                
-            });
-        }
+
+                localStorage.removeItem('changeButton');
+            }
+
+        });
     });
 
     //  When the page is reloaded is clicked the localstorage will be cleared
