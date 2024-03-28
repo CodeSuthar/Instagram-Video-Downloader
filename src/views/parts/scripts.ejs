@@ -1,7 +1,9 @@
 <script>
     const button = document.getElementsByClassName("download-button")[0];
 
-    button.addEventListener("click", async () => {
+    button.addEventListener("click", handleDownloadButton);
+
+    async function handleDownloadButton() {
         console.log("Button Clicked");
 
         let Input = await document.getElementById("instagramUrl");
@@ -70,7 +72,7 @@
   <span class="icon2"></span>
 </button>
 
-                        `
+                        `;
                         resArray.push(`<a href="${response.data[i].url}">${button}</a>`);
                     }
 
@@ -91,7 +93,7 @@ xmlns="http://www.w3.org/2000/svg"
 ></path>
 </svg>
 <span class="icon2"></span>
-</button>`
+</button>`;
 
                     element.innerHTML = `<a href="${response.data[0].url}">${button}</a>`;
 
@@ -117,7 +119,7 @@ xmlns="http://www.w3.org/2000/svg"
 ></path>
 </svg>
 <span class="icon2"></span>
-</button>`
+</button>`;
 
                         resArray.push(`<a href="${response.data[i].url}">${button}</a>`);
                     }
@@ -133,16 +135,18 @@ xmlns="http://www.w3.org/2000/svg"
                 "An error occurred. Please try again later and if this error continues reach out to codesuthar on Instagram."
             );
         }
-    });
+    }
 
     function instaRegex(url) {
-        const regex = /(?:https?:\/\/)?(?:www\.)?instagram\.com\/?([a-zA-Z0-9\.\_\-]+)?\/(p|r|reel|reels|tv|stories)\/([a-zA-Z0-9\-\_\.]+)\/?([0-9]+)?/;
+        const regex =
+            /(?:https?:\/\/)?(?:www\.)?instagram\.com\/?([a-zA-Z0-9\.\_\-]+)?\/(p|r|reel|reels|tv|stories)\/([a-zA-Z0-9\-\_\.]+)\/?([0-9]+)?/;
 
         if (regex.test(url)) {
             return url;
         } else {
             // Check if the URL is without protocol
-            const instaURLWithoutProtocol = /(?:www\.)?instagram\.com\/?([a-zA-Z0-9\.\_\-]+)?\/(p|r|reel|reels|tv|stories)\/([a-zA-Z0-9\-\_\.]+)\/?([0-9]+)?/;
+            const instaURLWithoutProtocol =
+                /(?:www\.)?instagram\.com\/?([a-zA-Z0-9\.\_\-]+)?\/(p|r|reel|reels|tv|stories)\/([a-zA-Z0-9\-\_\.]+)\/?([0-9]+)?/;
 
             if (instaURLWithoutProtocol.test(url)) {
                 return `https://${url}`;
@@ -172,7 +176,11 @@ xmlns="http://www.w3.org/2000/svg"
     function contentType(url) {
         if (url.includes("/p/")) {
             return "post";
-        } else if (url.includes("/r/") || url.includes("/reel/") || url.includes("/reels/")) {
+        } else if (
+            url.includes("/r/") ||
+            url.includes("/reel/") ||
+            url.includes("/reels/")
+        ) {
             return "reel";
         } else if (url.includes("/tv/")) {
             return "tv";
@@ -182,32 +190,36 @@ xmlns="http://www.w3.org/2000/svg"
     }
 </script>
 <script>
-    document.addEventListener('DOMContentLoaded', async () => {
-        const inputURL = await document.getElementById('instagramUrl');
+    document.addEventListener("DOMContentLoaded", async () => {
+        const inputURL = await document.getElementById("instagramUrl");
 
-        inputURL.addEventListener('input', async () => {
-            const changeButton = localStorage.getItem('changeButton');
+        inputURL.addEventListener("input", async () => {
+            const changeButton = localStorage.getItem("changeButton");
 
             if (changeButton) {
-                const element = await document.getElementById('formm');
+                const element = await document.getElementById("formm");
 
                 element.innerHTML = `<button class="download-button enabledbutton">
                             <span class="enabledbutton-content">Fetch</span>
                         </button>`;
 
-                localStorage.removeItem('changeButton');
-            }
 
+                const button = document.getElementsByClassName("download-button")[0];
+
+                button.addEventListener("click", handleDownloadButton);
+
+                localStorage.removeItem("changeButton");
+            }
         });
     });
 
     //  When the page is reloaded is clicked the localstorage will be cleared
-    window.addEventListener('beforeunload', async () => {
+    window.addEventListener("beforeunload", async () => {
         await localStorage.clear();
     });
 
     // When page is loaded the localstorage will be cleared
-    window.addEventListener('load', async () => {
+    window.addEventListener("load", async () => {
         await localStorage.clear();
     });
 </script>
